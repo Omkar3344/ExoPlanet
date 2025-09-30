@@ -1,5 +1,84 @@
 // Enhanced Script.js with Interactive Components and Charts
 
+// Initialize stars canvas
+function initStarsCanvas() {
+    const canvas = document.getElementById('starsCanvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const stars = [];
+    const starCount = 200;
+    
+    for (let i = 0; i < starCount; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2,
+            opacity: Math.random(),
+            speed: Math.random() * 0.5
+        });
+    }
+    
+    function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0a0a0a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        stars.forEach(star => {
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.fill();
+            
+            // Twinkling effect
+            star.opacity += (Math.random() - 0.5) * 0.02;
+            star.opacity = Math.max(0.1, Math.min(1, star.opacity));
+            
+            // Slow movement
+            star.y += star.speed;
+            if (star.y > canvas.height) {
+                star.y = 0;
+                star.x = Math.random() * canvas.width;
+            }
+        });
+        
+        requestAnimationFrame(drawStars);
+    }
+    
+    drawStars();
+    
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+}
+
+// Create planet preview visualization
+function initPlanetPreview() {
+    const preview = document.getElementById('planetPreview');
+    if (!preview) return;
+    
+    const orbit = document.createElement('div');
+    orbit.className = 'planet-orbit';
+    
+    const planet = document.createElement('div');
+    planet.className = 'planet';
+    
+    orbit.appendChild(planet);
+    preview.appendChild(orbit);
+}
+
+// Scroll to section function
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -18,6 +97,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 let lastScrollTop = 0;
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+    
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
     // Change navbar background
@@ -434,13 +515,21 @@ function filterExoplanets(query) {
 
 // Mobile menu functionality
 function initializeMobileMenu() {
-    const mobileToggle = document.querySelector('.mobile-toggle');
+    const mobileToggle = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
     
-    if (mobileToggle) {
+    if (mobileToggle && navLinks) {
         mobileToggle.addEventListener('click', () => {
             navLinks.classList.toggle('mobile-open');
             mobileToggle.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('mobile-open');
+                mobileToggle.classList.remove('active');
+            });
         });
     }
 }
@@ -481,6 +570,10 @@ function initializeLoader() {
 
 // Initialize all functionality
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize canvas and visual elements
+    initStarsCanvas();
+    initPlanetPreview();
+    
     // Observe elements for animations
     const animateElements = document.querySelectorAll(
         '.hero-stats, .exoplanet-card, .step-item, .performance-charts, .model-metrics, .analysis-item'
@@ -496,8 +589,28 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeParallax();
     initializeLoader();
     
+    // Initialize filter buttons
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.getAttribute('data-filter');
+            const cards = document.querySelectorAll('.exoplanet-card');
+            
+            cards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+    
     // Add interactive hover effects to buttons
-    document.querySelectorAll('.btn, .contact-btn, .learn-more-btn').forEach(btn => {
+    document.querySelectorAll('.btn, .contact-btn, .learn-more-btn, .cta-button').forEach(btn => {
         btn.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-2px) scale(1.05)';
             this.style.boxShadow = '0 10px 25px rgba(64, 224, 255, 0.4)';
