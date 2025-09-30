@@ -16,6 +16,13 @@ function init3DBackground() {
     const container = document.getElementById('threeContainer');
     if (!container) return;
     
+    // Check if THREE.js is available
+    if (typeof THREE === 'undefined') {
+        console.warn('THREE.js not loaded, using fallback animation');
+        createFallbackAnimation(container);
+        return;
+    }
+    
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -155,4 +162,88 @@ function addInteractiveEffects() {
         };
         block.appendChild(copyBtn);
     });
+}
+
+// Fallback animation when THREE.js is not available
+function createFallbackAnimation(container) {
+    container.innerHTML = `
+        <div class="fallback-planet-animation">
+            <div class="animated-planet"></div>
+            <div class="orbit-ring-1"></div>
+            <div class="orbit-ring-2"></div>
+        </div>
+    `;
+    
+    // Add CSS for fallback animation
+    if (!document.getElementById('fallback-animation-styles')) {
+        const style = document.createElement('style');
+        style.id = 'fallback-animation-styles';
+        style.textContent = `
+            .fallback-planet-animation {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 300px;
+                height: 300px;
+            }
+            
+            .animated-planet {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #4a90e2, #1a3a5a);
+                box-shadow: 0 0 60px rgba(64, 224, 255, 0.4),
+                            inset -20px -20px 40px rgba(0, 0, 0, 0.5);
+                animation: planet-pulse 3s ease-in-out infinite;
+            }
+            
+            .orbit-ring-1, .orbit-ring-2 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                border-radius: 50%;
+                border: 2px solid transparent;
+            }
+            
+            .orbit-ring-1 {
+                width: 200px;
+                height: 200px;
+                border-top-color: rgba(64, 224, 255, 0.5);
+                animation: orbit-rotate 2s linear infinite;
+                transform: translate(-50%, -50%);
+            }
+            
+            .orbit-ring-2 {
+                width: 250px;
+                height: 250px;
+                border-top-color: rgba(155, 89, 182, 0.4);
+                animation: orbit-rotate 3s linear infinite reverse;
+                transform: translate(-50%, -50%);
+            }
+            
+            @keyframes planet-pulse {
+                0%, 100% {
+                    transform: translate(-50%, -50%) scale(1);
+                    box-shadow: 0 0 60px rgba(64, 224, 255, 0.4),
+                                inset -20px -20px 40px rgba(0, 0, 0, 0.5);
+                }
+                50% {
+                    transform: translate(-50%, -50%) scale(1.05);
+                    box-shadow: 0 0 80px rgba(64, 224, 255, 0.6),
+                                inset -20px -20px 40px rgba(0, 0, 0, 0.5);
+                }
+            }
+            
+            @keyframes orbit-rotate {
+                from { transform: translate(-50%, -50%) rotate(0deg); }
+                to { transform: translate(-50%, -50%) rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
 }
