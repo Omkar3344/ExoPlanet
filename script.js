@@ -337,6 +337,27 @@ function initializeExoplanetCards() {
             showPlanetModal(planetData);
         });
     });
+    
+    // Initialize filter buttons
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.getAttribute('data-filter');
+            const cards = document.querySelectorAll('.exoplanet-card');
+            
+            cards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
 }
 
 // Planet modal functionality
@@ -704,6 +725,22 @@ function scrollToSection(sectionId) {
     }
 }
 
+// Mouse trail effect
+function initMouseTrail() {
+    document.addEventListener('mousemove', (e) => {
+        // Create temporary glow element
+        const glow = document.createElement('div');
+        glow.className = 'mouse-trail';
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+        document.body.appendChild(glow);
+        
+        setTimeout(() => {
+            glow.remove();
+        }, 500);
+    });
+}
+
 // Interactive constellation effect
 function initConstellation() {
     const canvas = document.createElement('canvas');
@@ -830,6 +867,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Add interactive constellation effect
     initConstellation();
+    
+    // Add mouse trail effect
+    initMouseTrail();
 });
 
 // Add dynamic CSS animations

@@ -1346,3 +1346,84 @@ body::after {
         transform: translateY(15px);
     }
 }
+
+/* Fade in animation for filtered cards */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Glitch text effect for hero title */
+.glitch-text {
+    position: relative;
+    text-shadow: 0 0 10px rgba(64, 224, 255, 0.5);
+    animation: glitch-text 5s infinite;
+}
+
+@keyframes glitch-text {
+    0%, 90%, 100% {
+        text-shadow: 0 0 10px rgba(64, 224, 255, 0.5);
+    }
+    93% {
+        text-shadow: 2px 2px 0 rgba(52, 152, 219, 0.7),
+                     -2px -2px 0 rgba(155, 89, 182, 0.7);
+    }
+    95% {
+        text-shadow: -2px 2px 0 rgba(155, 89, 182, 0.7),
+                     2px -2px 0 rgba(52, 152, 219, 0.7);
+    }
+}
+
+/* Add orbit animation to sections */
+.section-title::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #40E0FF;
+    border-radius: 50%;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: orbit-dot 3s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(64, 224, 255, 0.8);
+}
+
+@keyframes orbit-dot {
+    0%, 100% {
+        transform: translateY(-50%) translateX(0);
+    }
+    50% {
+        transform: translateY(-50%) translateX(-10px);
+    }
+}
+
+/* Mouse trail effect */
+.mouse-trail {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(64, 224, 255, 0.6), transparent);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: trail-fade 0.5s ease-out forwards;
+    z-index: 9999;
+}
+
+@keyframes trail-fade {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(2);
+    }
+}
