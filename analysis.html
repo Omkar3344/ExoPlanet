@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis & Results - ExoPlanet Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>ExoPlanet Monitor</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#exoplanets">Exoplanets</a></li>
+                <li><a href="model.html">Our Model</a></li>
+                <li><a href="#" class="active">Analysis</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact" class="contact-btn">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="analysis-page">
+        <section class="analysis-hero">
+            <div class="hero-bg">
+                <canvas id="starsCanvas"></canvas>
+            </div>
+            <div class="container">
+                <h1>Model Analysis & Results</h1>
+                <p class="page-subtitle">Comprehensive performance metrics and habitability predictions</p>
+            </div>
+        </section>
+
+        <section class="results-overview">
+            <div class="container">
+                <h2 class="section-title">Exoplanet Habitability Classification Results</h2>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Habitable Planets</h3>
+                        <div class="result-number">34</div>
+                        <p>Planets classified as potentially habitable</p>
+                        <div class="result-bar">
+                            <div class="bar-fill habitable" style="width: 2.7%"></div>
+                        </div>
+                        <span class="result-percentage">2.7% of total</span>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3>Uncertain</h3>
+                        <div class="result-number">156</div>
+                        <p>Planets requiring further analysis</p>
+                        <div class="result-bar">
+                            <div class="bar-fill uncertain" style="width: 12.5%"></div>
+                        </div>
+                        <span class="result-percentage">12.5% of total</span>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <h3>Non-Habitable</h3>
+                        <div class="result-number">1057</div>
+                        <p>Planets classified as non-habitable</p>
+                        <div class="result-bar">
+                            <div class="bar-fill non-habitable" style="width: 84.8%"></div>
+                        </div>
+                        <span class="result-percentage">84.8% of total</span>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>Total Analyzed</h3>
+                        <div class="result-number">1,247</div>
+                        <p>Exoplanets processed by our model</p>
+                        <div class="result-bar">
+                            <div class="bar-fill total" style="width: 100%"></div>
+                        </div>
+                        <span class="result-percentage">100% complete</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="performance-metrics">
+            <div class="container">
+                <h2 class="section-title">Model Performance Metrics</h2>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Classification Metrics</h3>
+                        <div class="metric-item">
+                            <div class="metric-header">
+                                <span class="metric-name">Accuracy</span>
+                                <span class="metric-value">89.2%</span>
+                            </div>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar" style="width: 89.2%"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric-item">
+                            <div class="metric-header">
+                                <span class="metric-name">Precision</span>
+                                <span class="metric-value">91.7%</span>
+                            </div>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar" style="width: 91.7%"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric-item">
+                            <div class="metric-header">
+                                <span class="metric-name">Recall</span>
+                                <span class="metric-value">86.4%</span>
+                            </div>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar" style="width: 86.4%"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric-item">
+                            <div class="metric-header">
+                                <span class="metric-name">F1-Score</span>
+                                <span class="metric-value">88.9%</span>
+                            </div>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar" style="width: 88.9%"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric-item">
+                            <div class="metric-header">
+                                <span class="metric-name">AUC-ROC</span>
+                                <span class="metric-value">94.3%</span>
+                            </div>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar" style="width: 94.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <h3>Confusion Matrix</h3>
+                        <div class="confusion-matrix">
+                            <div class="matrix-labels">
+                                <span></span>
+                                <span>Predicted Habitable</span>
+                                <span>Predicted Non-Habitable</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="row-label">Actual Habitable</span>
+                                <div class="matrix-cell true-positive">
+                                    <span class="cell-value">31</span>
+                                    <span class="cell-label">True Positive</span>
+                                </div>
+                                <div class="matrix-cell false-negative">
+                                    <span class="cell-value">5</span>
+                                    <span class="cell-label">False Negative</span>
+                                </div>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="row-label">Actual Non-Habitable</span>
+                                <div class="matrix-cell false-positive">
+                                    <span class="cell-value">8</span>
+                                    <span class="cell-label">False Positive</span>
+                                </div>
+                                <div class="matrix-cell true-negative">
+                                    <span class="cell-value">1203</span>
+                                    <span class="cell-label">True Negative</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="charts-section">
+            <div class="container">
+                <h2 class="section-title">Performance Visualizations</h2>
+                
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Habitability Score Distribution</h3>
+                        <canvas id="habitabilityDistChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>ROC Curve</h3>
+                        <canvas id="rocCurveChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Model Accuracy Over Time</h3>
+                        <canvas id="accuracyTimeChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Planet Types Distribution</h3>
+                        <canvas id="planetTypesChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Feature Importance</h3>
+                        <canvas id="featureImportanceChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Prediction Confidence</h3>
+                        <canvas id="confidenceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="top-candidates">
+            <div class="container">
+                <h2 class="section-title">Top Habitable Candidates</h2>
+                
+                <div class="candidates-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Planet Name</th>
+                                <th>Star System</th>
+                                <th>Distance (ly)</th>
+                                <th>Habitability Score</th>
+                                <th>Confidence</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="candidate-row">
+                                <td>1</td>
+                                <td><strong>TRAPPIST-1e</strong></td>
+                                <td>TRAPPIST-1</td>
+                                <td>39.5</td>
+                                <td>
+                                    <div class="score-badge high">92%</div>
+                                </td>
+                                <td>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-fill" style="width: 95%"></div>
+                                        <span>95%</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge confirmed">Confirmed</span></td>
+                            </tr>
+                            <tr class="candidate-row">
+                                <td>2</td>
+                                <td><strong>Kepler-452b</strong></td>
+                                <td>Kepler-452</td>
+                                <td>1,400</td>
+                                <td>
+                                    <div class="score-badge high">87%</div>
+                                </td>
+                                <td>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-fill" style="width: 89%"></div>
+                                        <span>89%</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge confirmed">Confirmed</span></td>
+                            </tr>
+                            <tr class="candidate-row">
+                                <td>3</td>
+                                <td><strong>Proxima Centauri b</strong></td>
+                                <td>Proxima Centauri</td>
+                                <td>4.2</td>
+                                <td>
+                                    <div class="score-badge medium">73%</div>
+                                </td>
+                                <td>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-fill" style="width: 82%"></div>
+                                        <span>82%</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge confirmed">Confirmed</span></td>
+                            </tr>
+                            <tr class="candidate-row">
+                                <td>4</td>
+                                <td><strong>LHS 1140 b</strong></td>
+                                <td>LHS 1140</td>
+                                <td>40.7</td>
+                                <td>
+                                    <div class="score-badge high">81%</div>
+                                </td>
+                                <td>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-fill" style="width: 88%"></div>
+                                        <span>88%</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge confirmed">Confirmed</span></td>
+                            </tr>
+                            <tr class="candidate-row">
+                                <td>5</td>
+                                <td><strong>TOI-700 d</strong></td>
+                                <td>TOI-700</td>
+                                <td>101.4</td>
+                                <td>
+                                    <div class="score-badge medium">78%</div>
+                                </td>
+                                <td>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-fill" style="width: 84%"></div>
+                                        <span>84%</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge candidate">Candidate</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="analysis-insights">
+            <div class="container">
+                <h2 class="section-title">Key Insights</h2>
+                
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Model Strengths</h3>
+                        <ul>
+                            <li>High precision (91.7%) minimizes false positives</li>
+                            <li>Excellent AUC-ROC (94.3%) shows strong discriminative ability</li>
+                            <li>Consistent performance across different planet types</li>
+                            <li>Robust to noisy or incomplete data</li>
+                        </ul>
+                    </div>
+
+                    <div class="insight-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Areas for Improvement</h3>
+                        <ul>
+                            <li>Recall could be improved to reduce false negatives</li>
+                            <li>More training data for rare planet types needed</li>
+                            <li>Integration of additional spectroscopic features</li>
+                            <li>Enhanced atmospheric composition analysis</li>
+                        </ul>
+                    </div>
+
+                    <div class="insight-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Future Directions</h3>
+                        <ul>
+                            <li>Incorporate data from JWST observations</li>
+                            <li>Develop ensemble models for improved accuracy</li>
+                            <li>Real-time analysis pipeline implementation</li>
+                            <li>Collaboration with international space agencies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-globe-americas"></i>
+                        <span>ExoPlanet Monitor</span>
+                    </div>
+                    <p>Advanced AI for exoplanet habitability analysis.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="model.html">Our Model</a></li>
+                        <li><a href="analysis.html">Analysis</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ExoPlanet Monitor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="analysis-script.js"></script>
+</body>
+</html>
