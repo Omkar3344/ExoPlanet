@@ -271,7 +271,7 @@ function initializeCharts() {
     createChart('habitabilityChart', {
         type: 'doughnut',
         data: {
-            labels: ['Habitable', 'Potentially Habitable', 'Not Habitable'],
+            labels: ['Habitable', 'Potentially', 'Not Habitable'],
             datasets: [{
                 data: [15, 35, 50],
                 backgroundColor: ['#00FF88', '#FFB347', '#FF6B6B'],
@@ -280,8 +280,21 @@ function initializeCharts() {
         }
     });
     
-    // Performance Metrics Chart
-    createChart('metricsChart', {
+    // Planet Types Distribution Chart
+    createChart('planetTypesChart', {
+        type: 'doughnut',
+        data: {
+            labels: ['Rocky', 'Gas Giant', 'Ice Giant', 'Super Earth'],
+            datasets: [{
+                data: [30, 25, 20, 25],
+                backgroundColor: ['#FF6B6B', '#FFB347', '#64B5F6', '#00FF88'],
+                borderWidth: 0
+            }]
+        }
+    });
+    
+    // Performance Metrics Chart (if exists)
+    createChart('performanceChart', {
         type: 'bar',
         data: {
             labels: ['Precision', 'Recall', 'F1-Score', 'AUC'],
@@ -329,18 +342,35 @@ function drawLineChart(ctx, data, width, height) {
     const margin = 40;
     const chartWidth = width - 2 * margin;
     const chartHeight = height - 2 * margin;
-    
-    const values = data.datasets[0].data;
+    const dataset = data.datasets[0];
+    const values = dataset.data;
     const max = Math.max(...values);
     const min = Math.min(...values);
+    const range = max - min || 1;
     
-    ctx.strokeStyle = data.datasets[0].borderColor;
+    // Background
+    ctx.fillStyle = 'rgba(10, 10, 10, 0.8)';
+    ctx.fillRect(0, 0, width, height);
+    
+    // Grid lines
+    ctx.strokeStyle = 'rgba(64, 224, 255, 0.1)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 5; i++) {
+        const y = margin + (chartHeight / 5) * i;
+        ctx.beginPath();
+        ctx.moveTo(margin, y);
+        ctx.lineTo(width - margin, y);
+        ctx.stroke();
+    }
+    
+    // Draw line
+    ctx.strokeStyle = dataset.borderColor || '#40E0FF';
     ctx.lineWidth = 3;
     ctx.beginPath();
     
     values.forEach((value, index) => {
-        const x = margin + (index / (values.length - 1)) * chartWidth;
-        const y = margin + ((max - value) / (max - min)) * chartHeight;
+        const x = margin + (chartWidth / (values.length - 1)) * index;
+        const y = height - margin - ((value - min) / range) * chartHeight;
         
         if (index === 0) {
             ctx.moveTo(x, y);
@@ -351,14 +381,30 @@ function drawLineChart(ctx, data, width, height) {
     
     ctx.stroke();
     
-    // Add points
-    ctx.fillStyle = data.datasets[0].borderColor;
+    // Draw points
+    ctx.fillStyle = dataset.borderColor || '#40E0FF';
     values.forEach((value, index) => {
-        const x = margin + (index / (values.length - 1)) * chartWidth;
-        const y = margin + ((max - value) / (max - min)) * chartHeight;
+        const x = margin + (chartWidth / (values.length - 1)) * index;
+        const y = height - margin - ((value - min) / range) * chartHeight;
+        
         ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI);
+        ctx.arc(x, y, 5, 0, Math.PI * 2);
         ctx.fill();
+        
+        // Draw value labels
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '12px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(value + '%', x, y - 15);
+    });
+    
+    // Draw labels
+    ctx.fillStyle = '#b0bec5';
+    ctx.font = '11px Arial';
+    ctx.textAlign = 'center';
+    data.labels.forEach((label, index) => {
+        const x = margin + (chartWidth / (values.length - 1)) * index;
+        ctx.fillText(label, x, height - 10);
     });
 }
 
@@ -368,28 +414,54 @@ function drawBarChart(ctx, data, width, height) {
     const chartHeight = height - 2 * margin;
     
     const values = data.datasets[0].data;
+    const labels = data.labels;
     const max = Math.max(...values);
-    const barWidth = chartWidth / values.length * 0.8;
-    const barSpacing = chartWidth / values.length * 0.2;
+    const barWidth = (chartWidth / values.length) * 0.6;
+    const spacing = (chartWidth / values.length) * 0.4;
     
-    ctx.fillStyle = data.datasets[0].backgroundColor;
+    // Background
+    ctx.fillStyle = 'rgba(10, 10, 10, 0.8)';
+    ctx.fillRect(0, 0, width, height);
     
+    // Draw bars
     values.forEach((value, index) => {
-        const x = margin + index * (barWidth + barSpacing);
+        const x = margin + (index * (chartWidth / values.length)) + spacing / 2;
         const barHeight = (value / max) * chartHeight;
-        const y = margin + chartHeight - barHeight;
+        const y = height - margin - barHeight;
         
+        // Bar
+        ctx.fillStyle = data.datasets[0].backgroundColor || '#40E0FF';
         ctx.fillRect(x, y, barWidth, barHeight);
+        
+        // Value label
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '12px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText((value * 100).toFixed(0) + '%', x + barWidth / 2, y - 10);
+        
+        // Label
+        ctx.fillStyle = '#b0bec5';
+        ctx.font = '10px Arial';
+        ctx.save();
+        ctx.translate(x + barWidth / 2, height - 15);
+        ctx.rotate(-Math.PI / 4);
+        ctx.fillText(labels[index], 0, 0);
+        ctx.restore();
     });
 }
 
 function drawDoughnutChart(ctx, data, width, height) {
+    // Background
+    ctx.fillStyle = 'rgba(10, 10, 10, 0.8)';
+    ctx.fillRect(0, 0, width, height);
+    
     const centerX = width / 2;
     const centerY = height / 2;
-    const radius = Math.min(width, height) / 2 - 20;
+    const radius = Math.min(width, height) / 2 - 40;
     const innerRadius = radius * 0.6;
     
     const values = data.datasets[0].data;
+    const labels = data.labels;
     const total = values.reduce((sum, val) => sum + val, 0);
     const colors = data.datasets[0].backgroundColor;
     
@@ -398,6 +470,7 @@ function drawDoughnutChart(ctx, data, width, height) {
     values.forEach((value, index) => {
         const sliceAngle = (value / total) * 2 * Math.PI;
         
+        // Draw slice
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
         ctx.arc(centerX, centerY, innerRadius, currentAngle + sliceAngle, currentAngle, true);
@@ -405,6 +478,18 @@ function drawDoughnutChart(ctx, data, width, height) {
         
         ctx.fillStyle = colors[index];
         ctx.fill();
+        
+        // Draw label
+        const labelAngle = currentAngle + sliceAngle / 2;
+        const labelRadius = radius + 25;
+        const labelX = centerX + Math.cos(labelAngle) * labelRadius;
+        const labelY = centerY + Math.sin(labelAngle) * labelRadius;
+        
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '12px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(labels[index], labelX, labelY);
+        ctx.fillText(value + '%', labelX, labelY + 15);
         
         currentAngle += sliceAngle;
     });
@@ -573,6 +658,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize canvas and visual elements
     initStarsCanvas();
     initPlanetPreview();
+    
+    // Trigger stats animation after a short delay
+    setTimeout(() => {
+        animateStats();
+        initializeCharts();
+    }, 500);
     
     // Observe elements for animations
     const animateElements = document.querySelectorAll(

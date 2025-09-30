@@ -52,6 +52,115 @@ h1, h2, h3, h4 {
     font-weight: 700;
 }
 
+/* Icon fallbacks when Font Awesome is blocked */
+.fas, .fab {
+    font-style: normal;
+}
+
+.fa-globe-americas::before {
+    content: "🌍";
+}
+
+.fa-rocket::before {
+    content: "🚀";
+}
+
+.fa-thermometer-half::before {
+    content: "🌡️";
+}
+
+.fa-weight::before {
+    content: "⚖️";
+}
+
+.fa-expand-arrows-alt::before {
+    content: "↔️";
+}
+
+.fa-brain::before {
+    content: "🧠";
+}
+
+.fa-chart-line::before {
+    content: "📈";
+}
+
+.fa-database::before {
+    content: "💾";
+}
+
+.fa-satellite::before {
+    content: "🛰️";
+}
+
+.fa-cogs::before {
+    content: "⚙️";
+}
+
+.fa-search::before {
+    content: "🔍";
+}
+
+.fa-check-circle::before {
+    content: "✓";
+}
+
+.fa-globe::before {
+    content: "🌐";
+}
+
+.fa-heart::before {
+    content: "❤️";
+}
+
+.fa-clock::before {
+    content: "⏱️";
+}
+
+.fa-bullseye::before {
+    content: "🎯";
+}
+
+.fa-telescope::before {
+    content: "🔭";
+}
+
+.fa-atom::before {
+    content: "⚛️";
+}
+
+.fa-users::before {
+    content: "👥";
+}
+
+.fa-user-astronaut::before {
+    content: "👨‍🚀";
+}
+
+.fa-robot::before {
+    content: "🤖";
+}
+
+.fa-chart-bar::before {
+    content: "📊";
+}
+
+.fa-twitter::before {
+    content: "🐦";
+}
+
+.fa-github::before {
+    content: "💻";
+}
+
+.fa-linkedin::before {
+    content: "💼";
+}
+
+.fa-envelope::before {
+    content: "✉️";
+}
+
 /* Container */
 .container {
     max-width: 1200px;
