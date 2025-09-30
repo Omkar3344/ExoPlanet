@@ -47,6 +47,94 @@ body {
     to { transform: translateY(-1000px); }
 }
 
+/* Wormhole effect for space theme */
+.wormhole {
+    position: fixed;
+    bottom: 15%;
+    left: 5%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(155, 89, 182, 0.15) 0%, rgba(52, 152, 219, 0.1) 30%, transparent 70%);
+    animation: wormhole-pulse 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.wormhole::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, transparent 0%, rgba(155, 89, 182, 0.2) 50%, transparent 100%);
+    animation: wormhole-spiral 4s linear infinite;
+}
+
+@keyframes wormhole-pulse {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        opacity: 0.6;
+    }
+}
+
+@keyframes wormhole-spiral {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+/* Blackhole effect */
+.blackhole {
+    position: fixed;
+    top: 20%;
+    right: 8%;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.8) 0%, rgba(52, 152, 219, 0.2) 30%, transparent 70%);
+    animation: blackhole-gravity 15s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.blackhole::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 2px solid rgba(64, 224, 255, 0.3);
+    animation: accretion-disk 6s linear infinite;
+}
+
+@keyframes blackhole-gravity {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 60px rgba(52, 152, 219, 0.3),
+                    inset 0 0 40px rgba(0, 0, 0, 0.9);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 100px rgba(52, 152, 219, 0.5),
+                    inset 0 0 60px rgba(0, 0, 0, 0.9);
+    }
+}
+
+@keyframes accretion-disk {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 /* Typography */
 h1, h2, h3, h4 {
     font-family: 'Orbitron', monospace;
@@ -160,6 +248,11 @@ h1, h2, h3, h4 {
     width: 100%;
 }
 
+/* Mobile menu button - hidden by default */
+.mobile-menu-btn {
+    display: none;
+}
+
 .contact-btn {
     background: linear-gradient(135deg, #3498db, #9b59b6);
     color: white;
@@ -210,6 +303,7 @@ h1, h2, h3, h4 {
     position: relative;
     background: radial-gradient(ellipse at top, rgba(52, 152, 219, 0.1), transparent 50%),
                 radial-gradient(ellipse at bottom, rgba(155, 89, 182, 0.1), transparent 50%);
+    overflow: hidden;
 }
 
 .hero::before {
@@ -221,6 +315,27 @@ h1, h2, h3, h4 {
     bottom: 0;
     background: linear-gradient(135deg, transparent 0%, rgba(52, 152, 219, 0.05) 50%, transparent 100%);
     pointer-events: none;
+}
+
+/* Space-themed background effects - Blackhole */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, transparent 30%, rgba(52, 152, 219, 0.1) 40%, transparent 70%);
+    border-radius: 50%;
+    animation: blackhole-rotate 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes blackhole-rotate {
+    0% { transform: rotate(0deg) scale(1); opacity: 0.3; }
+    50% { transform: rotate(180deg) scale(1.1); opacity: 0.5; }
+    100% { transform: rotate(360deg) scale(1); opacity: 0.3; }
 }
 
 .hero-content {
@@ -305,6 +420,7 @@ h1, h2, h3, h4 {
     justify-content: center;
     align-items: center;
     position: relative;
+    min-height: 400px;
 }
 
 .hero-visual::before {
@@ -315,6 +431,64 @@ h1, h2, h3, h4 {
     background: radial-gradient(circle, rgba(52, 152, 219, 0.2), transparent 70%);
     border-radius: 50%;
     animation: pulse 4s ease-in-out infinite;
+}
+
+/* Space-themed hero image - Planetary system */
+.planet-preview {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.planet-preview::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle at 30% 30%, 
+                rgba(64, 224, 255, 0.6) 0%, 
+                rgba(52, 152, 219, 0.8) 30%, 
+                rgba(26, 58, 90, 0.9) 70%, 
+                rgba(10, 20, 40, 1) 100%);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 60px rgba(52, 152, 219, 0.6),
+        inset -30px -30px 60px rgba(0, 0, 0, 0.8),
+        inset 10px 10px 30px rgba(64, 224, 255, 0.3);
+    animation: planet-rotate 20s linear infinite;
+}
+
+.planet-preview::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(75deg);
+    width: 300px;
+    height: 300px;
+    border: 3px solid transparent;
+    border-top-color: rgba(155, 89, 182, 0.6);
+    border-radius: 50%;
+    animation: ring-rotate 8s linear infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes planet-rotate {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes ring-rotate {
+    0% { transform: translate(-50%, -50%) rotateX(75deg) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotateX(75deg) rotate(360deg); }
 }
 
 @keyframes pulse {
@@ -1574,10 +1748,34 @@ h1, h2, h3, h4 {
     
     .hero-stats {
         justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .stat-item {
+        min-width: 120px;
     }
     
     .nav-links {
         display: none;
+    }
+    
+    /* Mobile menu button */
+    .mobile-menu-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+    }
+    
+    .mobile-menu-btn span {
+        width: 25px;
+        height: 3px;
+        background: linear-gradient(135deg, #3498db, #9b59b6);
+        border-radius: 2px;
+        transition: all 0.3s ease;
     }
     
     .exoplanets-grid {
@@ -1622,6 +1820,84 @@ h1, h2, h3, h4 {
     
     .flow-arrow {
         transform: rotate(90deg);
+    }
+    
+    /* Model page mobile responsiveness */
+    .overview-features {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .pipeline-modules {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .model-overview {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .specs-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .tools-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .benchmark-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .mc-features {
+        flex-direction: column !important;
+    }
+    
+    .viz-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Hero visual adjustments for mobile */
+    .hero-visual {
+        min-height: 300px;
+    }
+    
+    .planet-preview {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .planet-preview::before {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .planet-preview::after {
+        width: 220px;
+        height: 220px;
+    }
+    
+    /* Space effects scale down on mobile */
+    .wormhole, .blackhole {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .wormhole::before {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .blackhole::after {
+        width: 120px;
+        height: 120px;
+    }
+    
+    /* Dashboard grid responsive */
+    .dashboard-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .model-features {
+        grid-template-columns: 1fr !important;
     }
 }
 
