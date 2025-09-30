@@ -827,6 +827,39 @@ function initConstellation() {
     });
 }
 
+// Initialize contact form
+function initializeContactForm() {
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                submitBtn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
+                submitBtn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                
+                // Reset form
+                this.reset();
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = 'linear-gradient(135deg, #3498db, #9b59b6)';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }, 1500);
+        });
+    }
+}
+
 // Initialize all functionality
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize 3D effects first
@@ -847,6 +880,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeMobileMenu();
     initializeParallax();
     initializeLoader();
+    initializeContactForm();
     
     // Add interactive hover effects to buttons
     document.querySelectorAll('.btn, .contact-btn, .learn-more-btn, .cta-button').forEach(btn => {
