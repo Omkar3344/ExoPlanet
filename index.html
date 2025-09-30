@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoPlanet Monitor - AI-Powered Habitability Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="planet-loader"></div>
+            <p>Initializing Exoplanet Scanner...</p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>ExoPlanet Monitor</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#exoplanets">Exoplanets</a></li>
+                <li><a href="#model">Our Model</a></li>
+                <li><a href="#analysis">Analysis</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact" class="contact-btn">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-bg">
+                <canvas id="starsCanvas"></canvas>
+            </div>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="glitch-text">Discovering Habitable Worlds</h1>
+                    <p class="hero-subtitle">Advanced AI-powered analysis of exoplanet habitability using machine learning and deep space imagery</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="1247">0</span>
+                            <span class="stat-label">Exoplanets Analyzed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="89">0</span>
+                            <span class="stat-label">% Model Accuracy</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="34">0</span>
+                            <span class="stat-label">Habitable Candidates</span>
+                        </div>
+                    </div>
+                    <button class="cta-button" onclick="scrollToSection('exoplanets')">
+                        <span>Explore Discoveries</span>
+                        <i class="fas fa-rocket"></i>
+                    </button>
+                </div>
+                <div class="hero-visual">
+                    <div class="planet-preview" id="planetPreview"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exoplanets" class="exoplanets-section">
+            <div class="container">
+                <h2 class="section-title">Discovered Exoplanets</h2>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">All Planets</button>
+                    <button class="filter-btn" data-filter="habitable">Habitable</button>
+                    <button class="filter-btn" data-filter="gas-giant">Gas Giants</button>
+                    <button class="filter-btn" data-filter="rocky">Rocky Planets</button>
+                </div>
+                <div class="exoplanets-grid">
+                    <div class="exoplanet-card" data-category="habitable" data-planet="kepler-452b">
+                        <div class="planet-image">
+                            <div class="planet-sphere kepler-452b"></div>
+                        </div>
+                        <div class="planet-info">
+                            <h3>Kepler-452b</h3>
+                            <p class="planet-type">Super Earth</p>
+                            <div class="habitability-score">
+                                <span>Habitability: </span>
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 87%"></div>
+                                </div>
+                                <span class="score-text">87%</span>
+                            </div>
+                            <div class="planet-stats">
+                                <span><i class="fas fa-thermometer-half"></i> 265K</span>
+                                <span><i class="fas fa-weight"></i> 5.0 M⊕</span>
+                                <span><i class="fas fa-expand-arrows-alt"></i> 1.6 R⊕</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exoplanet-card" data-category="rocky" data-planet="trappist-1e">
+                        <div class="planet-image">
+                            <div class="planet-sphere trappist-1e"></div>
+                        </div>
+                        <div class="planet-info">
+                            <h3>TRAPPIST-1e</h3>
+                            <p class="planet-type">Terrestrial</p>
+                            <div class="habitability-score">
+                                <span>Habitability: </span>
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 92%"></div>
+                                </div>
+                                <span class="score-text">92%</span>
+                            </div>
+                            <div class="planet-stats">
+                                <span><i class="fas fa-thermometer-half"></i> 251K</span>
+                                <span><i class="fas fa-weight"></i> 0.77 M⊕</span>
+                                <span><i class="fas fa-expand-arrows-alt"></i> 0.92 R⊕</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exoplanet-card" data-category="gas-giant" data-planet="hd-209458b">
+                        <div class="planet-image">
+                            <div class="planet-sphere hd-209458b"></div>
+                        </div>
+                        <div class="planet-info">
+                            <h3>HD 209458b</h3>
+                            <p class="planet-type">Hot Jupiter</p>
+                            <div class="habitability-score">
+                                <span>Habitability: </span>
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 12%"></div>
+                                </div>
+                                <span class="score-text">12%</span>
+                            </div>
+                            <div class="planet-stats">
+                                <span><i class="fas fa-thermometer-half"></i> 1500K</span>
+                                <span><i class="fas fa-weight"></i> 0.69 M♃</span>
+                                <span><i class="fas fa-expand-arrows-alt"></i> 1.38 R♃</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exoplanet-card" data-category="habitable" data-planet="proxima-b">
+                        <div class="planet-image">
+                            <div class="planet-sphere proxima-b"></div>
+                        </div>
+                        <div class="planet-info">
+                            <h3>Proxima Centauri b</h3>
+                            <p class="planet-type">Terrestrial</p>
+                            <div class="habitability-score">
+                                <span>Habitability: </span>
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 73%"></div>
+                                </div>
+                                <span class="score-text">73%</span>
+                            </div>
+                            <div class="planet-stats">
+                                <span><i class="fas fa-thermometer-half"></i> 234K</span>
+                                <span><i class="fas fa-weight"></i> 1.27 M⊕</span>
+                                <span><i class="fas fa-expand-arrows-alt"></i> 1.1 R⊕</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="model" class="model-section">
+            <div class="container">
+                <h2 class="section-title">Our AI Model</h2>
+                <div class="model-overview">
+                    <div class="model-description">
+                        <h3>Advanced Machine Learning Architecture</h3>
+                        <p>Our state-of-the-art deep learning model analyzes exoplanet imagery and spectroscopic data to determine habitability potential. Using convolutional neural networks and ensemble methods, we achieve unprecedented accuracy in habitability classification.</p>
+                        
+                        <div class="model-features">
+                            <div class="feature-item">
+                                <i class="fas fa-brain"></i>
+                                <div>
+                                    <h4>Deep Neural Networks</h4>
+                                    <p>Multi-layer CNN architecture for image analysis</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-line"></i>
+                                <div>
+                                    <h4>Spectral Analysis</h4>
+                                    <p>Advanced algorithms for atmospheric composition</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-database"></i>
+                                <div>
+                                    <h4>Big Data Processing</h4>
+                                    <p>Processing petabytes of space telescope data</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="model-performance">
+                        <h3>Model Performance Metrics</h3>
+                        <div class="metrics-chart">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                        <div class="performance-stats">
+                            <div class="perf-stat">
+                                <span class="perf-label">Accuracy</span>
+                                <div class="perf-bar">
+                                    <div class="perf-fill" style="width: 89%"></div>
+                                </div>
+                                <span class="perf-value">89%</span>
+                            </div>
+                            <div class="perf-stat">
+                                <span class="perf-label">Precision</span>
+                                <div class="perf-bar">
+                                    <div class="perf-fill" style="width: 92%"></div>
+                                </div>
+                                <span class="perf-value">92%</span>
+                            </div>
+                            <div class="perf-stat">
+                                <span class="perf-label">Recall</span>
+                                <div class="perf-bar">
+                                    <div class="perf-fill" style="width: 86%"></div>
+                                </div>
+                                <span class="perf-value">86%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="implementation-steps">
+                    <h3>How It Works</h3>
+                    <div class="steps-container">
+                        <div class="step-item">
+                            <div class="step-number">01</div>
+                            <div class="step-content">
+                                <h4>Data Collection</h4>
+                                <p>Gather high-resolution imagery and spectroscopic data from space telescopes</p>
+                                <div class="step-visual">
+                                    <i class="fas fa-satellite"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">02</div>
+                            <div class="step-content">
+                                <h4>Pre-processing</h4>
+                                <p>Clean, normalize, and augment data for optimal model performance</p>
+                                <div class="step-visual">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">03</div>
+                            <div class="step-content">
+                                <h4>Feature Extraction</h4>
+                                <p>Extract key atmospheric and surface features using deep learning</p>
+                                <div class="step-visual">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">04</div>
+                            <div class="step-content">
+                                <h4>Habitability Analysis</h4>
+                                <p>Classify habitability potential with confidence scoring</p>
+                                <div class="step-visual">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis" class="analysis-section">
+            <div class="container">
+                <h2 class="section-title">Real-time Analysis Dashboard</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Habitability Distribution</h3>
+                        <canvas id="habitabilityChart"></canvas>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3>Detection Accuracy Over Time</h3>
+                        <canvas id="accuracyChart"></canvas>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3>Planet Types Distribution</h3>
+                        <canvas id="planetTypesChart"></canvas>
+                    </div>
+                    
+                    <div class="dashboard-card live-stats">
+                        <h3>Live Statistics</h3>
+                        <div class="live-stat-item">
+                            <span class="stat-icon"><i class="fas fa-globe"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="totalPlanets">1,247</span>
+                                <span class="stat-label">Total Analyzed</span>
+                            </div>
+                        </div>
+                        
+                        <div class="live-stat-item">
+                            <span class="stat-icon"><i class="fas fa-heart"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="habitablePlanets">34</span>
+                                <span class="stat-label">Potentially Habitable</span>
+                            </div>
+                        </div>
+                        
+                        <div class="live-stat-item">
+                            <span class="stat-icon"><i class="fas fa-clock"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="processingTime">2.3s</span>
+                                <span class="stat-label">Avg Processing Time</span>
+                            </div>
+                        </div>
+                        
+                        <div class="live-stat-item">
+                            <span class="stat-icon"><i class="fas fa-bullseye"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="confidence">89.2%</span>
+                                <span class="stat-label">Model Confidence</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title">About Our Mission</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Pioneering Exoplanet Research</h3>
+                        <p>We are at the forefront of exoplanet discovery and habitability analysis. Our team combines expertise in astrophysics, machine learning, and data science to push the boundaries of what's possible in space exploration.</p>
+                        
+                        <p>Using cutting-edge AI technology, we analyze vast amounts of data from space telescopes to identify potentially habitable worlds beyond our solar system. Our mission is to answer one of humanity's most profound questions: Are we alone in the universe?</p>
+                        
+                        <div class="mission-points">
+                            <div class="mission-point">
+                                <i class="fas fa-telescope"></i>
+                                <div>
+                                    <h4>Advanced Detection</h4>
+                                    <p>State-of-the-art algorithms for exoplanet identification</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mission-point">
+                                <i class="fas fa-atom"></i>
+                                <div>
+                                    <h4>Atmospheric Analysis</h4>
+                                    <p>Detailed composition analysis for habitability assessment</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mission-point">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <h4>Open Science</h4>
+                                    <p>Sharing discoveries with the global scientific community</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-section">
+                        <h3>Our Team</h3>
+                        <div class="team-grid">
+                            <div class="team-member">
+                                <div class="member-avatar">
+                                    <i class="fas fa-user-astronaut"></i>
+                                </div>
+                                <h4>Dr. Sarah Chen</h4>
+                                <p>Lead Astrophysicist</p>
+                            </div>
+                            
+                            <div class="team-member">
+                                <div class="member-avatar">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h4>Alex Rodriguez</h4>
+                                <p>ML Engineer</p>
+                            </div>
+                            
+                            <div class="team-member">
+                                <div class="member-avatar">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <h4>Dr. Michael Park</h4>
+                                <p>Data Scientist</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-globe-americas"></i>
+                        <span>ExoPlanet Monitor</span>
+                    </div>
+                    <p>Advancing humanity's understanding of potentially habitable worlds through AI-powered analysis.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#exoplanets">Discoveries</a></li>
+                        <li><a href="#model">Our Model</a></li>
+                        <li><a href="#analysis">Analysis</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ExoPlanet Monitor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

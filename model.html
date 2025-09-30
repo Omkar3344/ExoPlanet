@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Model Details - ExoPlanet Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>ExoPlanet Monitor</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#exoplanets">Exoplanets</a></li>
+                <li><a href="#" class="active">Our Model</a></li>
+                <li><a href="index.html#analysis">Analysis</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="#contact" class="contact-btn">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="model-detail-page">
+        <section class="model-hero">
+            <div class="container">
+                <h1>Deep Learning Architecture</h1>
+                <p class="model-subtitle">Advanced AI model for exoplanet habitability classification using multi-modal data analysis</p>
+            </div>
+        </section>
+
+        <section class="architecture-section">
+            <div class="container">
+                <h2>Model Architecture</h2>
+                <div class="architecture-diagram">
+                    <div class="layer-group">
+                        <h3>Input Layer</h3>
+                        <div class="layer input-layer">
+                            <div class="layer-info">
+                                <span>Telescope Images</span>
+                                <span>224x224x3</span>
+                            </div>
+                        </div>
+                        <div class="layer input-layer">
+                            <div class="layer-info">
+                                <span>Spectral Data</span>
+                                <span>1024x1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layer-group">
+                        <h3>Feature Extraction</h3>
+                        <div class="layer conv-layer">
+                            <div class="layer-info">
+                                <span>Conv2D + ReLU</span>
+                                <span>64 filters</span>
+                            </div>
+                        </div>
+                        <div class="layer conv-layer">
+                            <div class="layer-info">
+                                <span>Conv2D + ReLU</span>
+                                <span>128 filters</span>
+                            </div>
+                        </div>
+                        <div class="layer conv-layer">
+                            <div class="layer-info">
+                                <span>Conv2D + ReLU</span>
+                                <span>256 filters</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layer-group">
+                        <h3>Classification</h3>
+                        <div class="layer dense-layer">
+                            <div class="layer-info">
+                                <span>Dense + Dropout</span>
+                                <span>512 neurons</span>
+                            </div>
+                        </div>
+                        <div class="layer output-layer">
+                            <div class="layer-info">
+                                <span>Output</span>
+                                <span>Habitability Score</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="training-section">
+            <div class="container">
+                <h2>Training Process</h2>
+                <div class="training-grid">
+                    <div class="training-card">
+                        <h3>Training Data</h3>
+                        <canvas id="trainingDataChart"></canvas>
+                        <div class="data-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">250K</span>
+                                <span class="stat-label">Training Images</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">50K</span>
+                                <span class="stat-label">Validation Set</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="training-card">
+                        <h3>Loss & Accuracy</h3>
+                        <canvas id="lossAccuracyChart"></canvas>
+                    </div>
+
+                    <div class="training-card">
+                        <h3>Confusion Matrix</h3>
+                        <div class="confusion-matrix">
+                            <div class="matrix-header">
+                                <span></span>
+                                <span>Predicted</span>
+                            </div>
+                            <div class="matrix-row">
+                                <div class="matrix-label">Actual</div>
+                                <div class="matrix-cell habitable">89%</div>
+                                <div class="matrix-cell non-habitable">11%</div>
+                            </div>
+                            <div class="matrix-row">
+                                <div class="matrix-label"></div>
+                                <div class="matrix-cell non-habitable">8%</div>
+                                <div class="matrix-cell habitable">92%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="implementation-detail">
+            <div class="container">
+                <h2>Implementation Steps</h2>
+                <div class="steps-timeline">
+                    <div class="step-detail">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Data Preprocessing</h3>
+                            <p>Image normalization, augmentation, and spectral data cleaning</p>
+                            <div class="code-block">
+                                <pre><code># Image preprocessing pipeline
+def preprocess_image(image):
+    image = cv2.resize(image, (224, 224))
+    image = image.astype('float32') / 255.0
+    return np.expand_dims(image, axis=0)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-detail">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Model Training</h3>
+                            <p>Multi-GPU training with advanced optimization techniques</p>
+                            <div class="code-block">
+                                <pre><code># Model compilation
+model.compile(
+    optimizer=Adam(learning_rate=0.001),
+    loss='binary_crossentropy',
+    metrics=['accuracy', 'precision', 'recall']
+)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-detail">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Validation & Testing</h3>
+                            <p>Cross-validation and performance evaluation on test datasets</p>
+                            <div class="performance-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-label">Accuracy</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 89%"></div>
+                                    </div>
+                                    <span class="metric-value">89.2%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Precision</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 92%"></div>
+                                    </div>
+                                    <span class="metric-value">91.7%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Recall</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 86%"></div>
+                                    </div>
+                                    <span class="metric-value">86.4%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">F1-Score</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 88%"></div>
+                                    </div>
+                                    <span class="metric-value">88.9%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-detail">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Deployment</h3>
+                            <p>Real-time inference pipeline for continuous exoplanet analysis</p>
+                            <div class="deployment-info">
+                                <div class="deploy-stat">
+                                    <i class="fas fa-server"></i>
+                                    <span>Cloud Infrastructure</span>
+                                </div>
+                                <div class="deploy-stat">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <span>2.3s Processing Time</span>
+                                </div>
+                                <div class="deploy-stat">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>99.9% Uptime</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-globe-americas"></i>
+                        <span>ExoPlanet Monitor</span>
+                    </div>
+                    <p>Advanced AI for exoplanet habitability analysis.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#documentation">Documentation</a></li>
+                        <li><a href="#api">API Reference</a></li>
+                        <li><a href="#datasets">Datasets</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="model-script.js"></script>
+</body>
+</html>
