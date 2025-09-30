@@ -697,13 +697,12 @@ function initializeParallax() {
 // Loading screen
 function initializeLoader() {
     window.addEventListener('load', () => {
-        const loader = document.querySelector('.loader');
+        const loader = document.getElementById('loadingScreen');
         if (loader) {
-            loader.style.opacity = '0';
             setTimeout(() => {
-                loader.style.display = 'none';
+                loader.classList.add('hidden');
                 document.body.classList.add('loaded');
-            }, 500);
+            }, 1500);
         }
     });
 }
