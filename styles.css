@@ -1010,3 +1010,339 @@ h1, h2, h3, h4 {
         font-size: 2rem;
     }
 }
+
+/* ============================================
+   ENHANCED 3D INTERACTIVE EFFECTS
+   ============================================ */
+
+/* Floating animation for cards */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Pulsing glow effect */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(64, 224, 255, 0.4),
+                    0 0 40px rgba(52, 152, 219, 0.2),
+                    inset 0 0 20px rgba(64, 224, 255, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(64, 224, 255, 0.6),
+                    0 0 60px rgba(52, 152, 219, 0.4),
+                    inset 0 0 30px rgba(64, 224, 255, 0.2);
+    }
+}
+
+/* Orbital ring animation */
+@keyframes orbit {
+    from {
+        transform: rotate(0deg) translateX(100px) rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg) translateX(100px) rotate(-360deg);
+    }
+}
+
+/* Enhanced planet sphere with 3D effect */
+.planet-sphere {
+    animation: pulse-glow 3s ease-in-out infinite, rotate 20s linear infinite;
+    position: relative;
+}
+
+.planet-sphere::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 30%;
+    height: 30%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent);
+    border-radius: 50%;
+    filter: blur(10px);
+}
+
+/* Hero background enhancements */
+#starsCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+/* Planet preview 3D container */
+#planetPreview {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    margin: 0 auto;
+}
+
+#planetPreview canvas {
+    border-radius: 50%;
+    filter: drop-shadow(0 0 40px rgba(64, 224, 255, 0.5));
+}
+
+/* Interactive card hover enhancements */
+.exoplanet-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+}
+
+.exoplanet-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #3498db, #9b59b6, #40E0FF);
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+}
+
+.exoplanet-card:hover::before {
+    opacity: 0.7;
+    animation: rotate-border 3s linear infinite;
+}
+
+@keyframes rotate-border {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* Cosmic particle effect overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(52, 152, 219, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(155, 89, 182, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(64, 224, 255, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+    animation: cosmic-shift 30s ease-in-out infinite;
+}
+
+@keyframes cosmic-shift {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+/* Loading screen planet animation */
+.planet-loader {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3498db, #9b59b6);
+    position: relative;
+    animation: pulse-glow 2s ease-in-out infinite, spin 3s linear infinite;
+}
+
+.planet-loader::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    border: 3px solid transparent;
+    border-top-color: #40E0FF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.planet-loader::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%;
+    height: 140%;
+    border: 2px solid transparent;
+    border-top-color: #9b59b6;
+    border-radius: 50%;
+    animation: spin 2s linear infinite reverse;
+}
+
+/* Button enhancements with ripple effect */
+.cta-button, .contact-btn, .filter-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::after, .contact-btn::after, .filter-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.cta-button:active::after, .contact-btn:active::after, .filter-btn:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Section title glow */
+.section-title {
+    position: relative;
+    text-shadow: 0 0 20px rgba(64, 224, 255, 0.5);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #40E0FF, transparent);
+    animation: glow-line 2s ease-in-out infinite;
+}
+
+@keyframes glow-line {
+    0%, 100% {
+        opacity: 0.5;
+        width: 100px;
+    }
+    50% {
+        opacity: 1;
+        width: 150px;
+    }
+}
+
+/* Stats number animation enhancements */
+.stat-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #3498db, #40E0FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: number-glow 2s ease-in-out infinite;
+}
+
+@keyframes number-glow {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.3);
+    }
+}
+
+/* Navbar scrolled effect enhancement */
+.navbar.scrolled {
+    background: rgba(10, 10, 10, 0.98);
+    box-shadow: 0 5px 30px rgba(64, 224, 255, 0.2);
+}
+
+/* Modal 3D entrance */
+.planet-modal, .about-modal {
+    animation: modal-entrance 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modal-entrance {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotateY(-90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateY(0deg);
+    }
+}
+
+/* Exoplanet card planet sphere animations */
+.planet-sphere.kepler-452b {
+    background: radial-gradient(circle at 30% 30%, #6dd5ed, #2193b0);
+}
+
+.planet-sphere.trappist-1e {
+    background: radial-gradient(circle at 30% 30%, #f093fb, #f5576c);
+}
+
+.planet-sphere.hd-209458b {
+    background: radial-gradient(circle at 30% 30%, #fa709a, #fee140);
+}
+
+.planet-sphere.proxima-b {
+    background: radial-gradient(circle at 30% 30%, #4facfe, #00f2fe);
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 50px;
+    border: 2px solid rgba(64, 224, 255, 0.5);
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+.scroll-indicator::before {
+    content: '';
+    width: 6px;
+    height: 10px;
+    background: #40E0FF;
+    border-radius: 3px;
+    animation: scroll-down 2s ease-in-out infinite;
+}
+
+@keyframes scroll-down {
+    0%, 100% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(15px);
+    }
+}
